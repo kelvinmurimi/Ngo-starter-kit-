@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTagRequest extends FormRequest
+class UpdateGalleryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -23,8 +23,6 @@ class StoreTagRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required|string|max:255|unique:tags,name',
-            'slug' => 'required|string|max:255|unique:tags,slug',
         ];
     }
 }
