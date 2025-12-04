@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -34,6 +35,8 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
+        //user_id
+        $request->merge(['user_id' => Auth::id()]);
         //upload featured image if exists
         if ($request->hasFile('featured_image')) {
             $file = $request->file('featured_image');
@@ -71,6 +74,8 @@ class ArticleController extends Controller
     {
         //
         $article = Article::findOrFail($id);
+        //user_id
+        $request->merge(['user_id' => Auth::id()]);
         //upload featured image if exists deleting old one
         if ($request->hasFile('featured_image')) {
             $file = $request->file('featured_image');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Gallery;
 use App\Http\Requests\StoreGalleryRequest;
 use App\Http\Requests\UpdateGalleryRequest;
+use Illuminate\Support\Facades\Auth;
 
 class GalleryController extends Controller
 {
@@ -34,6 +35,8 @@ class GalleryController extends Controller
      */
     public function store(StoreGalleryRequest $request)
     {
+        //user_id
+        $request->merge(['user_id' => Auth::id()]);
         //add featured image upload logic here
         if ($request->hasFile('featured_image')) {
             $file = $request->file('featured_image');
@@ -70,6 +73,8 @@ class GalleryController extends Controller
     {
         //
         $gallery = Gallery::findOrFail($id);
+        //user_id
+        $request->merge(['user_id' => Auth::id()]);
         //add featured image upload logic here
         if ($request->hasFile('featured_image')) {
             $file = $request->file('featured_image');
