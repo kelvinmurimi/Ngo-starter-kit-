@@ -9,4 +9,9 @@ class Gallery extends Model
 {
     /** @use HasFactory<\Database\Factories\GalleryFactory> */
     use HasFactory;
+    protected $fillable = [
+        'caption',
+        'featured_image',
+        'user_id',
+    ];
 }

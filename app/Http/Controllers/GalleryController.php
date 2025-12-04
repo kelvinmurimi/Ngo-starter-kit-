@@ -14,6 +14,9 @@ class GalleryController extends Controller
     public function index()
     {
         //
+        $title = 'Galleries Management';
+        $galleries = Gallery::all();
+        return view('admin.galleries.index', compact('galleries', 'title'));
     }
 
     /**
@@ -22,6 +25,8 @@ class GalleryController extends Controller
     public function create()
     {
         //
+        $title = 'Create Gallery';
+        return view('admin.galleries.create', compact('title'));
     }
 
     /**
@@ -29,7 +34,15 @@ class GalleryController extends Controller
      */
     public function store(StoreGalleryRequest $request)
     {
-        //
+        //add featured image upload logic here
+        if ($request->hasFile('featured_image')) {
+            $file = $request->file('featured_image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/galleries'), $filename);
+            $request->merge(['featured_image' => 'uploads/galleries/' . $filename]);
+        }
+        Gallery::create($request->validated());
+        return redirect()->route('galleries.index')->with('success', 'Gallery created successfully.');
     }
 
     /**
@@ -46,21 +59,40 @@ class GalleryController extends Controller
     public function edit(Gallery $gallery)
     {
         //
+        $title = 'Edit Gallery';
+        return view('admin.galleries.edit', compact('gallery', 'title'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateGalleryRequest $request, Gallery $gallery)
+    public function update(UpdateGalleryRequest $request, Gallery $id)
     {
         //
+        $gallery = Gallery::findOrFail($id);
+        //add featured image upload logic here
+        if ($request->hasFile('featured_image')) {
+            $file = $request->file('featured_image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/galleries'), $filename);
+            $request->merge(['featured_image' => 'uploads/galleries/' . $filename]);
+        }
+        $gallery->update($request->validated());
+        return redirect()->route('galleries.index')->with('success', 'Gallery updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Gallery $gallery)
+    public function destroy(Gallery $id)
     {
         //
+        $gallery = Gallery::findOrFail($id);
+        //delete featured image if exists
+        if ($gallery->featured_image && file_exists(public_path($gallery->featured_image))) {
+            unlink(public_path($gallery->featured_image));
+        }
+        $gallery->delete();
+        return redirect()->route('galleries.index')->with('danger', 'Gallery deleted successfully.');
     }
 }
