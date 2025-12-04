@@ -1,14 +1,4 @@
-## Laravel AdminTW
-
-> **Note:** From version 5 AdminTW is a complete project rather than a package. If you are looking for the package version, please use version 4.
-
-Laravel AdminTW is a **Laravel Livewire Starter Kit** and a **TALL stack admin theme**, designed for rapid development and ease of use.
-
-![AdminTW](https://raw.githubusercontent.com/dcblogdev/laravel-admintw/refs/heads/main/public/images/admintw-light.png)
-![AdminTW](https://raw.githubusercontent.com/dcblogdev/laravel-admintw/refs/heads/main/public/images/admintw-dark.png)
-
-AdminTW is built on top of **Laravel, Livewire, and Tailwind CSS**, offering a modern and efficient admin dashboard.
-
+#### Intial project  starter from https://laraveladmintw.com/v5/docs/installation
 ### **Features**
 - **Two-Factor Authentication (2FA)**
 - **Audit Trails**
@@ -22,20 +12,14 @@ AdminTW is built on top of **Laravel, Livewire, and Tailwind CSS**, offering a m
 
 ## **Installation**
 
-### **Using Laravel Installer (Recommended from Laravel Installer version 5.14)**
 
-If you have Laravel Installer **5.14 or later**, you can quickly set up AdminTW with:
-
-```bash
-laravel new my-project --using=dcblogdev/laravel-admintw
-```
 
 ### **Manual Installation**
 
 1. Clone the repository
 
 ```bash
-git clone git@github.com:dcblogdev/laravel-admintw.git my-project
+git clone https://github.com/kelvinmurimi/Ngo-starter-kit-.git
 ```
 
 Open the project folder
@@ -89,11 +73,9 @@ Provided are blade and Laravel Livewire components for common layout / UI elemen
 
 ## Documentation
 
-Complete docs at [laraveladmintw.com](https://laraveladmintw.com)
 
-## Community
 
-There is a Discord community. https://discord.gg/VYau8hgwrm For quick help, ask questions in the appropriate channel.
+
 
 ## Contributing
 
@@ -107,8 +89,8 @@ Contributions are welcome and will be fully credited.
 
 ## Security
 
-If you discover any security related issues, please email dave@dcblog.dev email instead of using the issue tracker.
+If you discover any security related issues, please email murimicodes@gmail.com email instead of using the issue tracker.
 
 ## License
 
-Laravel AdminTW is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Lara-Ngo under the [MIT license](https://opensource.org/licenses/MIT).
