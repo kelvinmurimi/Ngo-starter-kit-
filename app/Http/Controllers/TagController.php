@@ -14,6 +14,9 @@ class TagController extends Controller
     public function index()
     {
         //
+        $title = 'Tags Management';
+        $tags = Tag::all();
+        return view('admin.tags.index', compact('tags', 'title'));
     }
 
     /**
@@ -22,6 +25,8 @@ class TagController extends Controller
     public function create()
     {
         //
+        $title = 'Create Tag';
+        return view('admin.tags.create', compact('title'));
     }
 
     /**
@@ -30,6 +35,8 @@ class TagController extends Controller
     public function store(StoreTagRequest $request)
     {
         //
+        Tag::create($request->validated());
+        return redirect()->route('tags.index')->with('success', 'Tag created successfully.');
     }
 
     /**
@@ -43,24 +50,33 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tag $tag)
+    public function edit(Tag $id)
     {
         //
+        $tag = Tag::findOrFail($id);
+        $title = 'Edit Tag';
+        return view('admin.tags.edit', compact('tag', 'title'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTagRequest $request, Tag $tag)
+    public function update(UpdateTagRequest $request,  $id)
     {
         //
+        $tag = Tag::findOrFail($id);
+        $tag->update($request->validated());
+        return redirect()->route('tags.index')->with('success', 'Tag updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tag $tag)
+    public function destroy($id)
     {
         //
+        $tag = Tag::findOrFail($id);
+        $tag->delete();
+        return redirect()->route('tags.index')->with('danger', 'Tag deleted successfully.');
     }
 }

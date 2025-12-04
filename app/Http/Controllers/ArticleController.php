@@ -14,6 +14,9 @@ class ArticleController extends Controller
     public function index()
     {
         //
+        $title = 'Articles Management';
+        $articles = Article::all();
+        return view('admin.articles.index', compact('articles', 'title'));
     }
 
     /**
@@ -22,6 +25,8 @@ class ArticleController extends Controller
     public function create()
     {
         //
+        $title = 'Create Article';
+        return view('admin.articles.create', compact('title'));
     }
 
     /**
@@ -29,7 +34,15 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-        //
+        //upload featured image if exists
+        if ($request->hasFile('featured_image')) {
+            $file = $request->file('featured_image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/articles'), $filename);
+            $request->merge(['featured_image' => 'uploads/articles/' . $filename]);
+        }
+        Article::create($request->validated());
+        return redirect()->route('articles.index')->with('success', 'Article created successfully.');
     }
 
     /**
@@ -43,24 +56,49 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Article $article)
+    public function edit(Article $id)
     {
         //
+        $article = Article::findOrFail($id);
+        $title = 'Edit Article';
+        return view('admin.articles.edit', compact('article', 'title'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateArticleRequest $request, Article $article)
+    public function update(UpdateArticleRequest $request,  $id)
     {
         //
+        $article = Article::findOrFail($id);
+        //upload featured image if exists deleting old one
+        if ($request->hasFile('featured_image')) {
+            $file = $request->file('featured_image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/articles'), $filename);
+            $request->merge(['featured_image' => 'uploads/articles/' . $filename]);
+        }
+        //delete old featured image if exists
+        if ($article->featured_image && file_exists(public_path($article->featured_image))) {
+            unlink(public_path($article->featured_image));
+        }
+        $article->update($request->validated());
+        return redirect()->route('articles.index')->with('success', 'Article updated successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Article $article)
+    public function destroy($id)
     {
         //
+        $article = Article::findOrFail($id);
+        //delete featured image if exists
+        if ($article->featured_image && file_exists(public_path($article->featured_image))) {
+            unlink(public_path($article->featured_image));
+        }
+        $article->delete();
+        return redirect()->route('articles.index')->with('danger', 'Article deleted successfully.');
     }
 }
