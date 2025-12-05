@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use App\Http\Requests\StoreTagRequest;
 use App\Http\Requests\UpdateTagRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class TagController extends Controller
 {
@@ -34,8 +36,17 @@ class TagController extends Controller
      */
     public function store(StoreTagRequest $request)
     {
-        //
-        Tag::create($request->validated());
+        $data = $request->validated();
+        //get slug from name
+        $slug = Str::slug($request->name);
+
+        $data['slug'] = $slug;
+
+        Tag::create([
+            'name' => $data['name'],
+            'slug' => $data['slug'],
+            //  'user_id' => Auth::id(),
+        ]);
         return redirect()->route('tags.index')->with('success', 'Tag created successfully.');
     }
 
@@ -50,7 +61,7 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tag $id)
+    public function edit($id)
     {
         //
         $tag = Tag::findOrFail($id);
@@ -63,9 +74,18 @@ class TagController extends Controller
      */
     public function update(UpdateTagRequest $request,  $id)
     {
-        //
+        //slug from name
+        $slug = Str::slug($request->name);
+        $data = $request->validated();
+
+        $data['slug'] = $slug;
+
         $tag = Tag::findOrFail($id);
-        $tag->update($request->validated());
+        $tag->update([
+            'name' => $data['name'],
+            'slug' => $data['slug'],
+            // 'user_id' => Auth::id(),
+        ]);
         return redirect()->route('tags.index')->with('success', 'Tag updated successfully.');
     }
 

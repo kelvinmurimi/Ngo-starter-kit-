@@ -24,3 +24,8 @@
 @can('view_users')
     <x-nav.link route="admin.users.index" icon="users">{{ __('Users') }}</x-nav.link>
 @endcan
+<x-nav.divider>{{ __('Blog') }}</x-nav.divider>
+
+@can('view_tags')
+    <x-nav.link route="tags.index" icon="tag">{{ __('Tags') }}</x-nav.link>
+@endcan

@@ -12,6 +12,7 @@ class Tag extends Model
     protected $fillable = [
         'name',
         'slug',
+        // 'user_id',
     ];
     // A tag can have many articles
     public function articles()
