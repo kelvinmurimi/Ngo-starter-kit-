@@ -1,9 +1,8 @@
-
 @can('view_dashboard')
     <x-nav.link route="dashboard" icon="home">{{ __('Dashboard') }}</x-nav.link>
 @endcan
 
-@if(can('view_system_settings') || can('view_roles') || can('view_audit_trails'))
+@if (can('view_system_settings') || can('view_roles') || can('view_audit_trails'))
     <x-nav.divider>{{ __('Settings') }}</x-nav.divider>
 @endif
 
@@ -28,4 +27,7 @@
 
 @can('view_tags')
     <x-nav.link route="tags.index" icon="tag">{{ __('Tags') }}</x-nav.link>
+@endcan
+@can('view_articles')
+    <x-nav.link route="articles.index" icon="tag">{{ __('Articles') }}</x-nav.link>
 @endcan

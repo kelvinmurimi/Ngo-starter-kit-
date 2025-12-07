@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
@@ -26,8 +28,9 @@ class ArticleController extends Controller
     public function create()
     {
         //
+        $tags = Tag::all();
         $title = 'Create Article';
-        return view('admin.articles.create', compact('title'));
+        return view('admin.articles.create', compact('title', 'tags'));
     }
 
     /**
@@ -35,16 +38,26 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
+        // dd($request->all());
+        //generate slug from title
+        $slug = Str::slug($request->title, '-');
         //user_id
-        $request->merge(['user_id' => Auth::id()]);
+        $userId = Auth::id();
         //upload featured image if exists
         if ($request->hasFile('featured_image')) {
-            $file = $request->file('featured_image');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/articles'), $filename);
-            $request->merge(['featured_image' => 'uploads/articles/' . $filename]);
+            $path = $request->file('featured_image')->store('uploads/articles', 'public');
         }
-        Article::create($request->validated());
+        //dd($featured_image);
+        Article::create([
+            'title' => $request->title,
+            'excerpt' => $request->excerpt,
+            'content' => $request->content,
+            'status' => $request->status,
+            'slug' => $slug,
+            'featured_image' => $path,
+            'user_id' => $userId,
+            'tag_id' => $request->tag_id,
+        ]);
         return redirect()->route('articles.index')->with('success', 'Article created successfully.');
     }
 
