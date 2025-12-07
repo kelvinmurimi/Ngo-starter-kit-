@@ -25,12 +25,12 @@ class StoreArticleRequest extends FormRequest
             //
             'title' => 'required|string|max:255|unique:articles,title',
             'content' => 'required|string',
-            'slug' => 'required|string|max:255|unique:articles,slug',
-            'user_id' => 'required|exists:users,id',
+            //'slug' => 'required|string|max:255|unique:articles,slug',
+            // 'user_id' => 'required|exists:users,id',
             'tag_id' => 'required|exists:tags,id',
             'status' => 'required',
-            'excerpt' => 'nullable|string',
-            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'excerpt' => 'required',
+            'featured_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:6000',
         ];
     }
 }
