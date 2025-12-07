@@ -47,6 +47,9 @@ Route::prefix(config('admintw.prefix'))->middleware(['auth', 'verified', 'active
         Route::get('{user}/edit', EditUser::class)->name('admin.users.edit');
         Route::get('{user}', ShowUser::class)->name('admin.users.show');
     });
+
+    //blog routes could go here
+    require __DIR__ . '/blog.php';
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
