@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\EventController;
 
 //Tags
 Route::prefix('tags')->group(function () {
@@ -22,4 +23,14 @@ Route::prefix('articles')->group(function () {
     Route::get('/{tag}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
     Route::put('/{tag}', [ArticleController::class, 'update'])->name('articles.update');
     Route::delete('/{tag}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+});
+
+//Events
+Route::prefix('events')->group(function () {
+    Route::get('/', [EventController::class, 'index'])->name('admin.events.index');
+    Route::get('/create', [EventController::class, 'create'])->name('admin.events.create');
+    Route::post('/', [EventController::class, 'store'])->name('admin.events.store');
+    Route::get('/{event}/edit', [EventController::class, 'edit'])->name('admin.events.edit');
+    Route::put('/{event}', [EventController::class, 'update'])->name('admin.events.update');
+    Route::delete('/{event}', [EventController::class, 'destroy'])->name('admin.events.destroy');
 });
