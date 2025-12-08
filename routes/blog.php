@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\EventController;
-
+use App\Http\Controllers\GalleryController;
 //Tags
 Route::prefix('tags')->group(function () {
     Route::get('/', [TagController::class, 'index'])->name('tags.index');
@@ -33,4 +33,15 @@ Route::prefix('events')->group(function () {
     Route::get('/{event}/edit', [EventController::class, 'edit'])->name('admin.events.edit');
     Route::put('/{event}', [EventController::class, 'update'])->name('admin.events.update');
     Route::delete('/{event}', [EventController::class, 'destroy'])->name('admin.events.destroy');
+});
+//Galleries 
+
+
+Route::prefix('galleries')->group(function () {
+    Route::get('/', [GalleryController::class, 'index'])->name('galleries.index');
+    Route::get('/create', [GalleryController::class, 'create'])->name('galleries.create');
+    Route::post('/', [GalleryController::class, 'store'])->name('galleries.store');
+    Route::get('/{gallery}/edit', [GalleryController::class, 'edit'])->name('galleries.edit');
+    Route::put('/{gallery}', [GalleryController::class, 'update'])->name('galleries.update');
+    Route::delete('/{gallery}', [GalleryController::class, 'destroy'])->name('galleries.destroy');
 });

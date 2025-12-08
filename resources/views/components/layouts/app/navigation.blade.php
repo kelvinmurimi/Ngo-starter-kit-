@@ -34,3 +34,7 @@
 @can('view_events')
     <x-nav.link route="admin.events.index" icon="calendar-days">{{ __('Events') }}</x-nav.link>
 @endcan
+{{-- // Gallery Navigation --}}
+@can('view_galleries')
+    <x-nav.link route="galleries.index" icon="photo">{{ __('Galleries') }}</x-nav.link>
+@endcan

@@ -17,7 +17,7 @@ class GalleryController extends Controller
         //
         $title = 'Galleries Management';
         $galleries = Gallery::all();
-        return view('admin.galleries.index', compact('galleries', 'title'));
+        return view('admin.gallaries.index', compact('galleries', 'title'));
     }
 
     /**
@@ -27,7 +27,7 @@ class GalleryController extends Controller
     {
         //
         $title = 'Create Gallery';
-        return view('admin.galleries.create', compact('title'));
+        return view('admin.gallaries.create', compact('title'));
     }
 
     /**
@@ -36,15 +36,18 @@ class GalleryController extends Controller
     public function store(StoreGalleryRequest $request)
     {
         //user_id
-        $request->merge(['user_id' => Auth::id()]);
+        $user_id = Auth::id();
         //add featured image upload logic here
         if ($request->hasFile('featured_image')) {
-            $file = $request->file('featured_image');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/galleries'), $filename);
-            $request->merge(['featured_image' => 'uploads/galleries/' . $filename]);
+            $path = $request->file('featured_image')->store('uploads/articles', 'public');
         }
-        Gallery::create($request->validated());
+        Gallery::create([
+            'user_id' => $user_id,
+            'caption' => $request->caption,
+            'featured_image' => $path,
+        ]);
+
+        //return redirect()->route('galleries.index')->with('success', 'Gallery created successfully.');
         return redirect()->route('galleries.index')->with('success', 'Gallery created successfully.');
     }
 
@@ -89,7 +92,7 @@ class GalleryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Gallery $id)
+    public function destroy($id)
     {
         //
         $gallery = Gallery::findOrFail($id);
