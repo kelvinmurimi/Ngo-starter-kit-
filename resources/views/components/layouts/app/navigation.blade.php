@@ -29,5 +29,12 @@
     <x-nav.link route="tags.index" icon="tag">{{ __('Tags') }}</x-nav.link>
 @endcan
 @can('view_articles')
-    <x-nav.link route="articles.index" icon="tag">{{ __('Articles') }}</x-nav.link>
+    <x-nav.link route="articles.index" icon="newspaper">{{ __('Articles') }}</x-nav.link>
+@endcan
+@can('view_events')
+    <x-nav.link route="admin.events.index" icon="calendar-days">{{ __('Events') }}</x-nav.link>
+@endcan
+{{-- // Gallery Navigation --}}
+@can('view_galleries')
+    <x-nav.link route="galleries.index" icon="photo">{{ __('Galleries') }}</x-nav.link>
 @endcan

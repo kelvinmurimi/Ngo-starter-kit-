@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreGalleryRequest extends FormRequest
+class StoreEventRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,13 @@ class StoreGalleryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-            'caption' => 'required|string|max:255',
-            'featured_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:6000', // 6MB
-
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'start_time' => 'required|date',
+            'end_time' => 'nullable|date|after_or_equal:start_time',
+            'location' => 'nullable|string|max:255',
+            'organizer' => 'nullable|string|max:255',
+            'featured_image' => 'nullable|image|max:6000', // max 6MB
         ];
     }
 }

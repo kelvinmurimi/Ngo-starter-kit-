@@ -23,8 +23,8 @@ class UpdateGalleryRequest extends FormRequest
     {
         return [
             //
-            'caption' => 'nullable|string|max:255',
-            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'caption' => 'required|max:255',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:6000', // 6MB
         ];
     }
 }
