@@ -97,7 +97,7 @@
             <div class="mx-auto w-full max-w-10xl p-4 lg:p-8">
                 {{-- //include error and success messages --}}
                 @if (session('success'))
-                    <div x-data="{ show: true }" x-show="show" x-transition class="mb-4 rounded-md bg-green-50 p-4">
+                    <div x-data="{ show: true }" x-show="show" x-transition class="mb-4 rounded-md bg-green-400 p-4">
                         <div class="flex">
                             <div class="flex-shrink-0">
                                 <x-heroicon-o-check-circle class="size-6 text-green-400" />
@@ -120,13 +120,13 @@
                     </div>
                 @endif
                 @if (session('danger'))
-                    <div x-data="{ show: true }" x-show="show" x-transition class="mb-4 rounded-md bg-red-50 p-4">
+                    <div x-data="{ show: true }" x-show="show" x-transition class="mb-4 rounded-md bg-red-400 p-4">
                         <div class="flex">
                             <div class="flex-shrink-0">
                                 <x-heroicon-o-x-circle class="size-6 text-red-400" />
                             </div>
                             <div class="ml-3 flex-1">
-                                <p class="text-sm font-medium text-red-800">
+                                <p class="text-sm font-medium text-red-700">
                                     {{ session('danger') }}
                                 </p>
                             </div>
