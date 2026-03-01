@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gallery;
+use App\Models\Tag;
 use App\Http\Requests\StoreGalleryRequest;
 use App\Http\Requests\UpdateGalleryRequest;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,8 @@ class GalleryController extends Controller
     {
         //
         $title = 'Create Gallery';
-        return view('admin.galleries.create', compact('title'));
+        $tags = Tag::all();
+        return view('admin.galleries.create', compact('title', 'tags'));
     }
 
     /**

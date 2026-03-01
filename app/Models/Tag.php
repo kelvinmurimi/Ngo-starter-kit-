@@ -19,4 +19,14 @@ class Tag extends Model
     {
         return $this->hasMany(Article::class);
     }
+    // A tag can have many galleries
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class);
+    }
+    //programs
+    public function programs()
+    {
+        return $this->hasMany(Program::class);
+    }
 }

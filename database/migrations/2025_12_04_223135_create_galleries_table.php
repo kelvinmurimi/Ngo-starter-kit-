@@ -16,6 +16,10 @@ return new class extends Migration
             $table->string('caption')->nullable();
             $table->string('featured_image')->nullable();
             $table->foreignUuId('user_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            //tag_id
+            $table->foreignId('tag_id')->nullable()->constrained('tags')->onDelete('cascade')->onUpdate('cascade');
+            //excerpt
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

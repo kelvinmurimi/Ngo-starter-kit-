@@ -15,6 +15,10 @@ class DatabaseSeeder extends Seeder
             RolesDatabaseSeeder::class,
             SettingsDatabaseSeeder::class,
             UserDatabaseSeeder::class,
+            //tagseed
+            TagSeeder::class,
+            //programseed
+            //ProgramSeeder::class,
         ]);
     }
 }

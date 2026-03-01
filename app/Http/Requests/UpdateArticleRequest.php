@@ -30,7 +30,7 @@ class UpdateArticleRequest extends FormRequest
             'tag_id' => 'required|exists:tags,id',
             'status' => 'required',
             'excerpt' => 'nullable|string',
-            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5400000',
         ];
     }
 }

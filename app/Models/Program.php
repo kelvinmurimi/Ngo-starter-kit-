@@ -5,15 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Gallery extends Model
+class Program extends Model
 {
-    /** @use HasFactory<\Database\Factories\GalleryFactory> */
+    /** @use HasFactory<\Database\Factories\ProgramFactory> */
     use HasFactory;
+
     protected $fillable = [
-        'caption',
+        'title',
+        'slug',
         'featured_image',
         'user_id',
+        'excerpt',
+        'contents',
         'tag_id',
-        'description'
+        'status',
     ];
+
+
+
 }
