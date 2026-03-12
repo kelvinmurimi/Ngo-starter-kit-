@@ -38,17 +38,17 @@
                                     @foreach ($galleries as $gallery)
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {{ $article->id }}</td>
+                                                {{ $gallery->id }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                {{ $article->title }}
+                                                {{ $gallery->caption }}
                                             </td>
 
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                <img src="{{ asset('storage/' . $article->featured_image) }}"
-                                                    alt="{{ $article->title }}" class="w-16 h-16 object-cover">
+                                                <img src="{{ asset('storage/' . $gallery->featured_image) }}"
+                                                    alt="{{ $gallery->caption }}" class="w-16 h-16 object-cover">
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <a href="{{ route('articles.edit', $article->id) }}"
+                                                <a href="{{ route('gallery.edit', $gallery->id) }}"
                                                     class="text-indigo-600 hover:text-indigo-900 inline-block"
                                                     title="{{ __('Edit') }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
@@ -60,12 +60,12 @@
                                                             clip-rule="evenodd" />
                                                     </svg>
                                                 </a>
-                                                <form action="{{ route('articles.destroy', $article->id) }}" method="POST"
+                                                <form action="{{ route('gallery.destroy', $gallery->id) }}" method="POST"
                                                     class="inline-block">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-red-600 hover:text-red-900 ml-4"
-                                                        onclick="return confirm('{{ __('Are you sure you want to delete this article ?') }}')"
+                                                        onclick="return confirm('{{ __('Are you sure you want to delete this gallery ?') }}')"
                                                         title="{{ __('Delete') }}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
                                                             viewBox="0 0 20 20" fill="currentColor">

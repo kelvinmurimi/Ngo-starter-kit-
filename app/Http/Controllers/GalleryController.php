@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Gallery;
 use App\Models\Tag;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\StoreGalleryRequest;
 use App\Http\Requests\UpdateGalleryRequest;
 use Illuminate\Support\Facades\Auth;
@@ -37,17 +39,23 @@ class GalleryController extends Controller
      */
     public function store(StoreGalleryRequest $request)
     {
-        //user_id
-        $request->merge(['user_id' => Auth::id()]);
+
         //add featured image upload logic here
+        $slug = Str::slug($request->title, '-');
+        //user_id
+        $userId = Auth::id();
+        //upload featured image if exists
         if ($request->hasFile('featured_image')) {
-            $file = $request->file('featured_image');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/galleries'), $filename);
-            $request->merge(['featured_image' => 'uploads/galleries/' . $filename]);
+            $path = $request->file('featured_image')->store('uploads/gallery', 'public');
         }
-        Gallery::create($request->validated());
-        return redirect()->route('galleries.index')->with('success', 'Gallery created successfully.');
+        Gallery::create([
+            'caption'=>$request->caption,
+            'featured_image'=>$path,
+            'user_id'=>$userId,
+            'tag_id'=>$request->tag_id,
+            'description'=>$request->caption
+        ]);
+        return redirect()->route('gallery.index')->with('success', 'Gallery created successfully.');
     }
 
     /**
@@ -65,7 +73,8 @@ class GalleryController extends Controller
     {
         //
         $title = 'Edit Gallery';
-        return view('admin.galleries.edit', compact('gallery', 'title'));
+        $tags = Tag::all();
+        return view('admin.galleries.edit', compact('gallery', 'title', 'tags'));
     }
 
     /**
@@ -91,7 +100,7 @@ class GalleryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Gallery $id)
+    public function destroy($id)
     {
         //
         $gallery = Gallery::findOrFail($id);
@@ -100,6 +109,6 @@ class GalleryController extends Controller
             unlink(public_path($gallery->featured_image));
         }
         $gallery->delete();
-        return redirect()->route('galleries.index')->with('danger', 'Gallery deleted successfully.');
+        return redirect()->route('gallery.index')->with('danger', 'Gallery deleted successfully.');
     }
 }

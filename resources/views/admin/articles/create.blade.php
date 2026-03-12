@@ -1,14 +1,17 @@
 @extends('layouts.base')
 
 @section('content')
+   
+   
+
     <div class="card">
         <div class="flex-1 p-8">
             <div class="flex items-center justify-between">
                 <h1 class="text-2xl font-bold text-indigo-700">{{ $title }}</h1>
             </div>
             <div x-data="{ submitting: false }" class="mt-6">
-                <x-form x-on:submit="submitting = true" action="{{ route('articles.store') }}" method="POST" class="space-y-6"
-                    enctype="multipart/form-data">
+                <x-form id="article-form" x-on:submit="submitting = true" action="{{ route('articles.store') }}" method="POST"
+                    class="space-y-6" enctype="multipart/form-data">
                     @csrf
                     {{-- title --}}
                     <div>
@@ -18,12 +21,14 @@
                     <div>
                         <x-form.textarea name='excerpt' label='Article Excerpt' cols='10' rows='10'>
                         </x-form.textarea>
+
                     </div>
                     {{-- content --}}
-                    <div>
-                        <x-form.textarea name='content' label='Article content' cols='10' rows='10'>
-                        </x-form.textarea>
-                    </div>
+                     <div>
+                        <input name="contents" type="hidden">
+                        <div id="editor" style="height: 300px;"></div>
+                     </div>
+                    
                     {{-- select status --}}
                     <x-form.select name="status">
                         <x-form.select-option value="Draft">Draft</x-form.select-option>
@@ -63,4 +68,43 @@
 
 
     </div>
+
+{{-- <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+<script>
+ const toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  ['blockquote', 'code-block'],
+  ['link', 'image', 'video', 'formula'],
+
+  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+  [{ 'direction': 'rtl' }],                         // text direction
+
+  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+  [{ 'font': [] }],
+  [{ 'align': [] }],
+
+  ['clean']                                         // remove formatting button
+];
+
+const quill = new Quill('#editor', {
+  modules: {
+    toolbar: toolbarOptions
+  },
+  theme: 'snow'
+});
+
+const form = document.querySelector('#article-form');
+form.addEventListener('submit', function() {
+  // Populate hidden form on submit
+  var content = document.querySelector('input[name=content]');
+  content.value = quill.root.innerHTML;
+});
+</script> --}}
+
 @endsection

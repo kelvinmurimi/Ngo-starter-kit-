@@ -24,7 +24,7 @@ class UpdateArticleRequest extends FormRequest
         return [
             //
             'title' => 'required|string|max:255|unique:articles,title,' . $this->article->id,
-            'content' => 'required|string',
+            'contents' => 'required|string',
             'slug' => 'required|string|max:255|unique:articles,slug,' . $this->article->id,
             'user_id' => 'required|exists:users,id',
             'tag_id' => 'required|exists:tags,id',

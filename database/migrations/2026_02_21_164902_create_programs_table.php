@@ -24,7 +24,8 @@ return new class extends Migration
             //status: draft, published, archived
             $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
             //content
-            $table->text('contents');
+            $table->longText('contents');
+           
             $table->timestamps();
         });
     }

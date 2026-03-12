@@ -7,7 +7,7 @@
                 <h1 class="text-2xl font-bold text-indigo-700">{{ $title }}</h1>
             </div>
             <div x-data="{ submitting: false }" class="mt-6">
-                <x-form x-on:submit="submitting = true" action="{{ route('programs.store') }}" method="POST" class="space-y-6"
+                <x-form  id="article-form"    x-on:submit="submitting = true" action="{{ route('programs.store') }}" method="POST" class="space-y-6"
                     enctype="multipart/form-data">
                     @csrf
                     {{-- title --}}
@@ -20,10 +20,10 @@
                         </x-form.textarea>
                     </div>
                     {{-- content --}}
-                    <div>
-                        <x-form.textarea name='contents' label='Program content' cols='10' rows='10'>
-                        </x-form.textarea>
-                    </div>
+                     <div>
+                        <input name="contents" type="hidden">
+                        <div id="editor" style="height: 300px;"></div>
+                     </div>
                     {{-- select status --}}
                     <x-form.select name="status">
                         <x-form.select-option value="Draft">Draft</x-form.select-option>

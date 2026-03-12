@@ -51,7 +51,7 @@ class ArticleController extends Controller
         Article::create([
             'title' => $request->title,
             'excerpt' => $request->excerpt,
-            'content' => $request->content,
+            'contents' => $request->contents,
             'status' => $request->status,
             'slug' => $slug,
             'featured_image' => $path,

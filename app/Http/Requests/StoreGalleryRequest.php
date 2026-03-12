@@ -23,8 +23,12 @@ class StoreGalleryRequest extends FormRequest
     {
         return [
             //
-            'caption' => 'nullable|string|max:255',
-            'featured_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'caption' => 'nullable|string|max:255|required',
+            'featured_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:600000',
+            //description
+            'description' => 'nullable|string|required',
+            //tag
+            'tag_id' => 'required|exists:tags,id',
 
         ];
     }

@@ -36,6 +36,9 @@
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     @foreach ($articles as $article)
+                                          {{-- test article display --}}
+                                             {{--  {!! $article->content !!}} --}}
+                                          {{-- test article display--}}
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                 {{ $article->id }}</td>

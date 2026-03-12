@@ -32,7 +32,7 @@ Route::prefix('gallery')->group(function () {
     Route::get('/create', [GalleryController::class, 'create'])->name('gallery.create');
     Route::post('/store', [GalleryController::class, 'store'])->name('gallery.store');
     Route::get('/{id}/edit', [GalleryController::class, 'edit'])->name('gallery.edit');
-    Route::put('/{id}/update', [GalleryController::class, 'update'])->name('gallery.update');
+    Route::patch('/{id}/update', [GalleryController::class, 'update'])->name('gallery.update');
     Route::delete('/{id}/delete', [GalleryController::class, 'destroy'])->name('gallery.destroy');
 });
 

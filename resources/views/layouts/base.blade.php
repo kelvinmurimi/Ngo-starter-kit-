@@ -5,9 +5,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title') {{ $title ?? null }} - {{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title') {{ $title ?? null }} - {{ config('app.name', 'RRS') }}</title>
+
+
+    <!-- include summernote css/js-->
+    {{--  <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="summernote-bs5.css" rel="stylesheet">
+    <script src="summernote-bs5.js"></script> --}}
+    <!-- end summernote css/js -->
     @stack('scripts')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
 </head>
 
 <body>
@@ -155,15 +165,83 @@
                 </div>
                 <div class="inline-flex items-center justify-center pt-1 pb-4 md:pt-4">
                     <span>
-                        {{ __('Built by') }} <a href="https://dcblog.dev" target="_blank"
-                            class="font-medium text-blue-600 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-300">David
-                            Carr</a>
+                        {{ __('Built by') }} <a href="" target="_blank"
+                            class="font-medium text-blue-600 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-300">Texasstudios/Murimicodes
+                        </a>
                     </span>
                 </div>
             </div>
         </footer>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <script>
+        const toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+            ['blockquote', 'code-block'],
+            ['link', 'image', 'video', 'formula'],
 
+            [{
+                'header': 1
+            }, {
+                'header': 2
+            }], // custom button values
+            [{
+                'list': 'ordered'
+            }, {
+                'list': 'bullet'
+            }, {
+                'list': 'check'
+            }],
+            [{
+                'script': 'sub'
+            }, {
+                'script': 'super'
+            }], // superscript/subscript
+            [{
+                'indent': '-1'
+            }, {
+                'indent': '+1'
+            }], // outdent/indent
+            [{
+                'direction': 'rtl'
+            }], // text direction
+
+            [{
+                'size': ['small', false, 'large', 'huge']
+            }], // custom dropdown
+            [{
+                'header': [1, 2, 3, 4, 5, 6, false]
+            }],
+
+            [{
+                'color': []
+            }, {
+                'background': []
+            }], // dropdown with defaults from theme
+            [{
+                'font': []
+            }],
+            [{
+                'align': []
+            }],
+
+            ['clean'] // remove formatting button
+        ];
+
+        const quill = new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
+        });
+
+        const form = document.querySelector('#article-form');
+        form.addEventListener('submit', function() {
+            // Populate hidden form on submit
+            var content = document.querySelector('input[name=contents]');
+            content.value = quill.root.innerHTML;
+        });
+    </script>
 </body>
 
 </html>
