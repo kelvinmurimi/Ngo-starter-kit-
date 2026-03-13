@@ -23,7 +23,7 @@
 @can('view_users')
     <x-nav.link route="admin.users.index" icon="users">{{ __('Users') }}</x-nav.link>
 @endcan
-<x-nav.divider>{{ __('Blog') }}</x-nav.divider>
+<x-nav.divider>{{ __('Modules') }}</x-nav.divider>
 
 @can('view_tags')
     <x-nav.link route="tags.index" icon="tag">{{ __('Tags') }}</x-nav.link>
@@ -36,4 +36,13 @@
 @endcan
 @can('view_articles')
     <x-nav.link route="programs.index" icon="newspaper">{{ __('Programmes') }}</x-nav.link>
+@endcan
+@can('view_articles')
+    <x-nav.link route="programs.index" icon="chat-bubble-bottom-center">{{ __('Publications') }}</x-nav.link>
+@endcan
+@can('view_articles')
+    <x-nav.link route="programs.index" icon="calendar-date-range">{{ __('Events') }}</x-nav.link>
+@endcan
+@can('view_articles')
+    <x-nav.link route="programs.index" icon="user-plus">{{ __('Partners') }}</x-nav.link>
 @endcan
